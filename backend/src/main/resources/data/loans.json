@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "username": "john",
+    "bookId": 4,
+    "bookTitle": "Atomic Habits",
+    "loanDate": "2025-10-25",
+    "dueDate": "2025-11-08",
+    "returnDate": "2025-11-05",
+    "returned": true
+  },
+  {
+    "id": 2,
+    "username": "jane",
+    "bookId": 5,
+    "bookTitle": "Sapiens",
+    "loanDate": "2025-11-01",
+    "dueDate": "2025-11-15",
+    "returnDate": null,
+    "returned": false
+  }
+]

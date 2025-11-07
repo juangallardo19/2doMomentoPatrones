@@ -1,6 +1,6 @@
 package com.biblioteca.patterns.singleton;
 
-import com.biblioteca.models.Book;
+import com.biblioteca.patterns.factory.Book;
 import com.biblioteca.models.Loan;
 import java.util.ArrayList;
 import java.util.List;

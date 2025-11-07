@@ -1,0 +1,95 @@
+[
+  {
+    "id": 1,
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "isbn": "978-0132350884",
+    "category": "Programming",
+    "available": true,
+    "bookType": "DIGITAL",
+    "fileFormat": "PDF",
+    "fileSizeMB": 15.5
+  },
+  {
+    "id": 2,
+    "title": "Design Patterns",
+    "author": "Gang of Four",
+    "isbn": "978-0201633612",
+    "category": "Programming",
+    "available": true,
+    "bookType": "DIGITAL",
+    "fileFormat": "EPUB",
+    "fileSizeMB": 8.2
+  },
+  {
+    "id": 3,
+    "title": "The Pragmatic Programmer",
+    "author": "Andrew Hunt, David Thomas",
+    "isbn": "978-0135957059",
+    "category": "Programming",
+    "available": true,
+    "bookType": "EBOOK",
+    "hasInteractiveContent": true,
+    "pageCount": 352,
+    "publisher": "Addison-Wesley"
+  },
+  {
+    "id": 4,
+    "title": "Atomic Habits",
+    "author": "James Clear",
+    "isbn": "978-0735211292",
+    "category": "Self-Improvement",
+    "available": true,
+    "bookType": "AUDIO",
+    "narrator": "James Clear",
+    "durationMinutes": 315,
+    "audioFormat": "MP3"
+  },
+  {
+    "id": 5,
+    "title": "Sapiens",
+    "author": "Yuval Noah Harari",
+    "isbn": "978-0062316097",
+    "category": "History",
+    "available": true,
+    "bookType": "AUDIO",
+    "narrator": "Derek Perkins",
+    "durationMinutes": 900,
+    "audioFormat": "AAC"
+  },
+  {
+    "id": 6,
+    "title": "Introduction to Algorithms",
+    "author": "Thomas H. Cormen",
+    "isbn": "978-0262033848",
+    "category": "Computer Science",
+    "available": true,
+    "bookType": "EBOOK",
+    "hasInteractiveContent": false,
+    "pageCount": 1312,
+    "publisher": "MIT Press"
+  },
+  {
+    "id": 7,
+    "title": "Educated",
+    "author": "Tara Westover",
+    "isbn": "978-0399590504",
+    "category": "Biography",
+    "available": true,
+    "bookType": "DIGITAL",
+    "fileFormat": "PDF",
+    "fileSizeMB": 3.8
+  },
+  {
+    "id": 8,
+    "title": "Thinking, Fast and Slow",
+    "author": "Daniel Kahneman",
+    "isbn": "978-0374533557",
+    "category": "Psychology",
+    "available": true,
+    "bookType": "EBOOK",
+    "hasInteractiveContent": true,
+    "pageCount": 499,
+    "publisher": "Farrar, Straus and Giroux"
+  }
+]
