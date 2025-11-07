@@ -155,6 +155,80 @@ public class AuthController {
     }
 
     /**
+     * Register new user
+     * POST /api/auth/register
+     * Body: { "username": "...", "password": "...", "email": "...", "fullName": "..." }
+     */
+    @PostMapping("/register")
+    public ResponseEntity<Map<String, Object>> register(@RequestBody Map<String, String> userData) {
+        String username = userData.get("username");
+        String password = userData.get("password");
+        String email = userData.get("email");
+        String fullName = userData.get("fullName");
+
+        // Validate required fields
+        if (username == null || username.trim().isEmpty() ||
+            password == null || password.trim().isEmpty() ||
+            email == null || email.trim().isEmpty() ||
+            fullName == null || fullName.trim().isEmpty()) {
+            Map<String, Object> error = new HashMap<>();
+            error.put("success", false);
+            error.put("message", "All fields are required");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+
+        // Load existing users
+        List<User> users = dataService.loadUsers();
+
+        // Check if username already exists
+        boolean usernameExists = users.stream()
+                .anyMatch(u -> u.getUsername().equalsIgnoreCase(username));
+
+        if (usernameExists) {
+            Map<String, Object> error = new HashMap<>();
+            error.put("success", false);
+            error.put("message", "Username already exists");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+        }
+
+        // Check if email already exists
+        boolean emailExists = users.stream()
+                .anyMatch(u -> u.getEmail().equalsIgnoreCase(email));
+
+        if (emailExists) {
+            Map<String, Object> error = new HashMap<>();
+            error.put("success", false);
+            error.put("message", "Email already registered");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+        }
+
+        // Create new user with USER role (not ADMIN)
+        int newId = users.stream()
+                .mapToInt(User::getId)
+                .max()
+                .orElse(0) + 1;
+
+        User newUser = new User(newId, username, password, email, "USER", fullName);
+        users.add(newUser);
+
+        // Save to JSON
+        dataService.saveUsers(users);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("message", "Registration successful");
+        response.put("user", Map.of(
+                "id", newUser.getId(),
+                "username", newUser.getUsername(),
+                "email", newUser.getEmail(),
+                "role", newUser.getRole(),
+                "fullName", newUser.getFullName()
+        ));
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    /**
      * Extract token from Authorization header
      * Format: "Bearer {token}"
      */

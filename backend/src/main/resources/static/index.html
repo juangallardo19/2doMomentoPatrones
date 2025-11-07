@@ -7,59 +7,114 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-box">
-            <div class="logo">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="book-animation">
+                    <div class="book">
+                        <div class="book-cover"></div>
+                        <div class="book-page"></div>
+                    </div>
+                </div>
                 <h1>📚 Digital Library</h1>
-                <p>Design Patterns Implementation</p>
+                <p class="subtitle">Your gateway to knowledge</p>
             </div>
 
-            <form id="loginForm" class="login-form">
-                <h2>Login</h2>
+            <form id="loginForm" class="auth-form">
+                <h2>Welcome Back</h2>
 
                 <div class="form-group">
-                    <label for="username">Username</label>
+                    <label for="username">
+                        <span class="icon">👤</span>
+                        Username
+                    </label>
                     <input type="text" id="username" name="username" required
                            placeholder="Enter your username">
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">
+                        <span class="icon">🔒</span>
+                        Password
+                    </label>
                     <input type="password" id="password" name="password" required
                            placeholder="Enter your password">
                 </div>
 
-                <div id="errorMessage" class="error-message" style="display: none;"></div>
+                <div id="errorMessage" class="message error-message" style="display: none;"></div>
 
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary btn-large">
+                    <span>Sign In</span>
+                    <span class="btn-icon">→</span>
+                </button>
             </form>
 
-            <div class="demo-credentials">
-                <h3>Demo Credentials:</h3>
-                <div class="credentials-list">
-                    <div class="credential-item">
-                        <strong>Admin:</strong> admin / admin123
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="/register.html" class="link">Create one</a></p>
+            </div>
+
+            <div class="demo-section">
+                <div class="demo-header">
+                    <span class="demo-badge">Demo Credentials</span>
+                </div>
+                <div class="credentials-grid">
+                    <div class="credential-card admin">
+                        <div class="credential-role">Admin</div>
+                        <div class="credential-info">
+                            <span>admin</span>
+                            <span class="separator">/</span>
+                            <span>admin123</span>
+                        </div>
                     </div>
-                    <div class="credential-item">
-                        <strong>User:</strong> john / user123
+                    <div class="credential-card user">
+                        <div class="credential-role">User</div>
+                        <div class="credential-info">
+                            <span>john</span>
+                            <span class="separator">/</span>
+                            <span>user123</span>
+                        </div>
                     </div>
-                    <div class="credential-item">
-                        <strong>Guest:</strong> guest / guest
+                    <div class="credential-card guest">
+                        <div class="credential-role">Guest</div>
+                        <div class="credential-info">
+                            <span>guest</span>
+                            <span class="separator">/</span>
+                            <span>guest</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="patterns-info">
-                <h3>🎯 Design Patterns Used:</h3>
-                <ul>
-                    <li><strong>Singleton</strong> - AuthenticationManager, LibraryManager</li>
-                    <li><strong>Factory Method</strong> - BookFactory (Digital, Audio, eBook)</li>
-                    <li><strong>Facade</strong> - LibraryFacade (Simplified operations)</li>
-                </ul>
+                <h3>🎯 Design Patterns</h3>
+                <div class="patterns-grid">
+                    <div class="pattern-item">
+                        <span class="pattern-icon">🔒</span>
+                        <div>
+                            <strong>Singleton</strong>
+                            <small>Manager Instances</small>
+                        </div>
+                    </div>
+                    <div class="pattern-item">
+                        <span class="pattern-icon">🏭</span>
+                        <div>
+                            <strong>Factory</strong>
+                            <small>Book Creation</small>
+                        </div>
+                    </div>
+                    <div class="pattern-item">
+                        <span class="pattern-icon">🎭</span>
+                        <div>
+                            <strong>Facade</strong>
+                            <small>Simplified API</small>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
+    <script src="/js/config.js"></script>
     <script src="/js/auth.js"></script>
 </body>
 </html>
