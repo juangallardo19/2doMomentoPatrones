@@ -12,46 +12,46 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * PATRÓN FACADE - LibraryFacade
+ * FACADE PATTERN - LibraryFacade
  *
- * Propósito: Proporcionar una interfaz simplificada para el sistema complejo
- * de la biblioteca, ocultando la complejidad de los subsistemas.
+ * Purpose: Provide a simplified interface for the complex library system,
+ * hiding the complexity of the subsystems.
  *
- * Subsistemas que coordina:
- * - AuthenticationManager (Singleton) - Autenticación
- * - LibraryManager (Singleton) - Gestión de libros y préstamos
- * - BookFactory (Factory Method) - Creación de libros
+ * Subsystems it coordinates:
+ * - AuthenticationManager (Singleton) - Authentication
+ * - LibraryManager (Singleton) - Book and loan management
+ * - BookFactory (Factory Method) - Book creation
  *
- * Ventajas:
- * - Simplifica el uso del sistema para los clientes
- * - Reduce las dependencias entre el código cliente y los subsistemas
- * - Proporciona un punto de entrada único para operaciones complejas
- * - Facilita el mantenimiento al centralizar la lógica
+ * Advantages:
+ * - Simplifies system usage for clients
+ * - Reduces dependencies between client code and subsystems
+ * - Provides a single entry point for complex operations
+ * - Facilitates maintenance by centralizing logic
  *
- * El patrón Facade proporciona una interfaz unificada para un conjunto de
- * interfaces en un subsistema, haciendo que el subsistema sea más fácil de usar.
+ * The Facade pattern provides a unified interface to a set of interfaces
+ * in a subsystem, making the subsystem easier to use.
  */
 public class LibraryFacade {
 
-    // Instancia única del Facade
+    // Unique Facade instance
     private static LibraryFacade instance;
 
-    // Referencias a los subsistemas (Singletons)
+    // References to subsystems (Singletons)
     private AuthenticationManager authManager;
     private LibraryManager libraryManager;
 
     /**
-     * Constructor privado
-     * Inicializa las referencias a los subsistemas
+     * Private constructor
+     * Initializes references to subsystems
      */
     private LibraryFacade() {
         this.authManager = AuthenticationManager.getInstance();
         this.libraryManager = LibraryManager.getInstance();
-        System.out.println("🎭 LibraryFacade inicializado - Patrón Facade activo");
+        System.out.println("🎭 LibraryFacade initialized - Facade pattern active");
     }
 
     /**
-     * Obtiene la instancia única del Facade
+     * Gets the unique Facade instance
      */
     public static synchronized LibraryFacade getInstance() {
         if (instance == null) {
@@ -61,154 +61,154 @@ public class LibraryFacade {
     }
 
     /**
-     * OPERACIÓN FACADE: Login completo
-     * Simplifica el proceso de autenticación
+     * FACADE OPERATION: Complete login
+     * Simplifies the authentication process
      *
-     * @param user Usuario a autenticar
-     * @return Token de sesión
+     * @param user User to authenticate
+     * @return Session token
      */
     public String loginUser(User user) {
-        System.out.println("🎭 Facade: Procesando login para " + user.getUsername());
+        System.out.println("🎭 Facade: Processing login for " + user.getUsername());
         return authManager.login(user);
     }
 
     /**
-     * OPERACIÓN FACADE: Logout
+     * FACADE OPERATION: Logout
      *
-     * @param token Token de sesión
-     * @return true si se cerró exitosamente
+     * @param token Session token
+     * @return true if closed successfully
      */
     public boolean logoutUser(String token) {
-        System.out.println("🎭 Facade: Procesando logout");
+        System.out.println("🎭 Facade: Processing logout");
         return authManager.logout(token);
     }
 
     /**
-     * OPERACIÓN FACADE: Crear y agregar un libro al catálogo
-     * Coordina BookFactory y LibraryManager
+     * FACADE OPERATION: Create and add a book to the catalog
+     * Coordinates BookFactory and LibraryManager
      *
-     * @param bookType Tipo de libro
-     * @param params Parámetros del libro
-     * @return Libro creado
+     * @param bookType Type of book
+     * @param params Book parameters
+     * @return Created book
      */
     public Book createAndAddBook(String bookType, Map<String, Object> params) {
-        System.out.println("🎭 Facade: Creando y agregando libro tipo " + bookType);
+        System.out.println("🎭 Facade: Creating and adding book type " + bookType);
 
-        // Usa el Factory para crear el libro
+        // Uses the Factory to create the book
         Book book = BookFactory.createBook(bookType, params);
 
-        // Usa el LibraryManager para agregarlo al catálogo
+        // Uses LibraryManager to add it to the catalog
         libraryManager.addBook(book);
 
         return book;
     }
 
     /**
-     * OPERACIÓN FACADE: Prestar un libro
-     * Coordina AuthenticationManager, LibraryManager y validaciones
+     * FACADE OPERATION: Borrow a book
+     * Coordinates AuthenticationManager, LibraryManager and validations
      *
-     * @param token Token de sesión del usuario
-     * @param bookId ID del libro a prestar
-     * @return Objeto Loan si fue exitoso, null si falló
+     * @param token User's session token
+     * @param bookId ID of the book to borrow
+     * @return Loan object if successful, null if failed
      */
     public Loan borrowBook(String token, int bookId) {
-        System.out.println("🎭 Facade: Procesando préstamo de libro ID " + bookId);
+        System.out.println("🎭 Facade: Processing book loan ID " + bookId);
 
-        // 1. Validar token
+        // 1. Validate token
         if (!authManager.isValidToken(token)) {
-            System.out.println("❌ Token inválido");
+            System.out.println("❌ Invalid token");
             return null;
         }
 
-        // 2. Obtener usuario
+        // 2. Get user
         User user = authManager.getUserByToken(token);
 
-        // 3. Obtener libro
+        // 3. Get book
         Book book = libraryManager.getBookById(bookId);
         if (book == null) {
-            System.out.println("❌ Libro no encontrado");
+            System.out.println("❌ Book not found");
             return null;
         }
 
-        // 4. Verificar disponibilidad
+        // 4. Check availability
         if (!book.isAvailable()) {
-            System.out.println("❌ Libro no disponible");
+            System.out.println("❌ Book not available");
             return null;
         }
 
-        // 5. Crear préstamo
+        // 5. Create loan
         Loan loan = new Loan(
-            0, // ID será asignado por LibraryManager
+            0, // ID will be assigned by LibraryManager
             user.getUsername(),
             bookId,
             book.getTitle(),
             LocalDate.now(),
-            LocalDate.now().plusDays(14) // 14 días de préstamo
+            LocalDate.now().plusDays(14) // 14 days loan period
         );
 
-        // 6. Registrar préstamo y actualizar disponibilidad
+        // 6. Register loan and update availability
         libraryManager.addLoan(loan);
         book.setAvailable(false);
 
-        System.out.println("✅ Préstamo exitoso: " + book.getTitle() + " para " + user.getUsername());
+        System.out.println("✅ Successful loan: " + book.getTitle() + " for " + user.getUsername());
         return loan;
     }
 
     /**
-     * OPERACIÓN FACADE: Devolver un libro
+     * FACADE OPERATION: Return a book
      *
-     * @param token Token de sesión
-     * @param loanId ID del préstamo
-     * @return true si fue exitoso
+     * @param token Session token
+     * @param loanId Loan ID
+     * @return true if successful
      */
     public boolean returnBook(String token, int loanId) {
-        System.out.println("🎭 Facade: Procesando devolución de préstamo ID " + loanId);
+        System.out.println("🎭 Facade: Processing book return ID " + loanId);
 
-        // 1. Validar token
+        // 1. Validate token
         if (!authManager.isValidToken(token)) {
-            System.out.println("❌ Token inválido");
+            System.out.println("❌ Invalid token");
             return false;
         }
 
-        // 2. Obtener préstamo
+        // 2. Get loan
         Loan loan = libraryManager.getLoanById(loanId);
         if (loan == null) {
-            System.out.println("❌ Préstamo no encontrado");
+            System.out.println("❌ Loan not found");
             return false;
         }
 
-        // 3. Verificar que no esté ya devuelto
+        // 3. Check if already returned
         if (loan.isReturned()) {
-            System.out.println("❌ El libro ya fue devuelto");
+            System.out.println("❌ Book already returned");
             return false;
         }
 
-        // 4. Obtener libro y actualizar disponibilidad
+        // 4. Get book and update availability
         Book book = libraryManager.getBookById(loan.getBookId());
         if (book != null) {
             book.setAvailable(true);
         }
 
-        // 5. Marcar como devuelto
+        // 5. Mark as returned
         loan.setReturned(true);
         loan.setReturnDate(LocalDate.now());
 
-        System.out.println("✅ Devolución exitosa: " + loan.getBookTitle());
+        System.out.println("✅ Successful return: " + loan.getBookTitle());
         return true;
     }
 
     /**
-     * OPERACIÓN FACADE: Búsqueda de libros con autenticación
+     * FACADE OPERATION: Search books with authentication
      *
-     * @param token Token de sesión
-     * @param searchTerm Término de búsqueda
-     * @return Lista de libros encontrados
+     * @param token Session token
+     * @param searchTerm Search term
+     * @return List of found books
      */
     public List<Book> searchBooks(String token, String searchTerm) {
-        System.out.println("🎭 Facade: Buscando libros: " + searchTerm);
+        System.out.println("🎭 Facade: Searching books: " + searchTerm);
 
         if (!authManager.isValidToken(token)) {
-            System.out.println("❌ Token inválido");
+            System.out.println("❌ Invalid token");
             return List.of();
         }
 
@@ -216,16 +216,16 @@ public class LibraryFacade {
     }
 
     /**
-     * OPERACIÓN FACADE: Obtener historial de préstamos del usuario
+     * FACADE OPERATION: Get user's loan history
      *
-     * @param token Token de sesión
-     * @return Lista de préstamos del usuario
+     * @param token Session token
+     * @return List of user's loans
      */
     public List<Loan> getUserLoanHistory(String token) {
-        System.out.println("🎭 Facade: Obteniendo historial de préstamos");
+        System.out.println("🎭 Facade: Getting loan history");
 
         if (!authManager.isValidToken(token)) {
-            System.out.println("❌ Token inválido");
+            System.out.println("❌ Invalid token");
             return List.of();
         }
 
@@ -234,16 +234,16 @@ public class LibraryFacade {
     }
 
     /**
-     * OPERACIÓN FACADE: Obtener catálogo completo
+     * FACADE OPERATION: Get complete catalog
      *
-     * @param token Token de sesión
-     * @return Lista de todos los libros
+     * @param token Session token
+     * @return List of all books
      */
     public List<Book> getCatalog(String token) {
-        System.out.println("🎭 Facade: Obteniendo catálogo completo");
+        System.out.println("🎭 Facade: Getting complete catalog");
 
         if (!authManager.isValidToken(token)) {
-            System.out.println("❌ Token inválido");
+            System.out.println("❌ Invalid token");
             return List.of();
         }
 
@@ -251,33 +251,33 @@ public class LibraryFacade {
     }
 
     /**
-     * OPERACIÓN FACADE: Obtener estadísticas (solo admin)
+     * FACADE OPERATION: Get statistics (admin only)
      *
-     * @param token Token de sesión
-     * @return Estadísticas de la biblioteca
+     * @param token Session token
+     * @return Library statistics
      */
     public String getStatistics(String token) {
         if (!authManager.isValidToken(token)) {
-            return "❌ Token inválido";
+            return "❌ Invalid token";
         }
 
         User user = authManager.getUserByToken(token);
         if (!"ADMIN".equals(user.getRole())) {
-            return "❌ Acceso denegado. Solo administradores.";
+            return "❌ Access denied. Administrators only.";
         }
 
         return libraryManager.getStatistics();
     }
 
     /**
-     * Valida si un usuario está autenticado
+     * Validates if a user is authenticated
      */
     public boolean isAuthenticated(String token) {
         return authManager.isValidToken(token);
     }
 
     /**
-     * Obtiene el usuario actual
+     * Gets the current user
      */
     public User getCurrentUser(String token) {
         return authManager.getUserByToken(token);

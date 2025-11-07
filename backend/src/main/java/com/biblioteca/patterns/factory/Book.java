@@ -1,15 +1,15 @@
 package com.biblioteca.patterns.factory;
 
 /**
- * PATRÓN FACTORY METHOD - Clase base abstracta Book
+ * FACTORY METHOD PATTERN - Abstract base class Book
  *
- * Propósito: Definir la interfaz común para todos los tipos de libros
- * que serán creados por el Factory.
+ * Purpose: Define the common interface for all book types
+ * that will be created by the Factory.
  *
- * Parte del patrón Factory Method donde:
- * - Esta clase es el "Producto" abstracto
- * - Las subclases (DigitalBook, AudioBook, EBook) son "Productos Concretos"
- * - BookFactory es el "Creador"
+ * Part of the Factory Method pattern where:
+ * - This class is the abstract "Product"
+ * - The subclasses (DigitalBook, AudioBook, EBook) are "Concrete Products"
+ * - BookFactory is the "Creator"
  */
 public abstract class Book {
 
@@ -22,10 +22,10 @@ public abstract class Book {
     protected String bookType; // Digital, Audio, EBook
 
     /**
-     * Constructor base
+     * Base constructor
      */
     public Book(String title, String author, String isbn, String category, String bookType) {
-        this.id = 0; // Será asignado por LibraryManager
+        this.id = 0; // Will be assigned by LibraryManager
         this.title = title;
         this.author = author;
         this.isbn = isbn;
@@ -35,17 +35,17 @@ public abstract class Book {
     }
 
     /**
-     * Método abstracto - Cada tipo de libro implementa su propia descripción
-     * Parte del patrón Factory Method
+     * Abstract method - Each book type implements its own description
+     * Part of the Factory Method pattern
      */
     public abstract String getBookDetails();
 
     /**
-     * Método abstracto - Comportamiento específico de cada tipo de libro
+     * Abstract method - Specific behavior for each book type
      */
     public abstract String getAccessMethod();
 
-    // Getters y Setters
+    // Getters and Setters
     public int getId() {
         return id;
     }

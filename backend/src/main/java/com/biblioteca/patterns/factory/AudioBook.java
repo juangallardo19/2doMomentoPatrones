@@ -1,15 +1,15 @@
 package com.biblioteca.patterns.factory;
 
 /**
- * PATRÓN FACTORY METHOD - Producto Concreto: AudioBook
+ * FACTORY METHOD PATTERN - Concrete Product: AudioBook
  *
- * Representa un audiolibro
- * Implementa los métodos abstractos de Book con comportamiento específico
+ * Represents an audiobook
+ * Implements Book's abstract methods with specific behavior
  */
 public class AudioBook extends Book {
 
-    private String narrator; // Narrador
-    private int durationMinutes; // Duración en minutos
+    private String narrator; // Narrator
+    private int durationMinutes; // Duration in minutes
     private String audioFormat; // MP3, AAC, etc.
 
     /**
@@ -28,24 +28,24 @@ public class AudioBook extends Book {
         int hours = durationMinutes / 60;
         int minutes = durationMinutes % 60;
         return String.format(
-            "🎧 Audiolibro\n" +
-            "   Título: %s\n" +
-            "   Autor: %s\n" +
+            "🎧 AudioBook\n" +
+            "   Title: %s\n" +
+            "   Author: %s\n" +
             "   ISBN: %s\n" +
-            "   Categoría: %s\n" +
-            "   Narrador: %s\n" +
-            "   Duración: %dh %dmin\n" +
-            "   Formato: %s",
+            "   Category: %s\n" +
+            "   Narrator: %s\n" +
+            "   Duration: %dh %dmin\n" +
+            "   Format: %s",
             title, author, isbn, category, narrator, hours, minutes, audioFormat
         );
     }
 
     @Override
     public String getAccessMethod() {
-        return "Streaming o descarga en formato " + audioFormat + " - Narrado por " + narrator;
+        return "Streaming or download in " + audioFormat + " format - Narrated by " + narrator;
     }
 
-    // Getters y Setters específicos
+    // Specific Getters and Setters
     public String getNarrator() {
         return narrator;
     }

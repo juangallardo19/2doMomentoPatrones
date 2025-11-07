@@ -1,104 +1,104 @@
-# 📚 Sistema de Biblioteca Digital
+# 📚 Digital Library System
 
-Sistema de gestión de biblioteca digital desarrollado con **Java Spring Boot** que implementa tres patrones de diseño fundamentales.
+Digital library management system developed with **Java Spring Boot** implementing three fundamental design patterns.
 
-## 🎯 Patrones de Diseño Implementados
+## 🎯 Implemented Design Patterns
 
 ### 1. Singleton 🔒
-**Ubicación:** `backend/src/main/java/com/biblioteca/patterns/singleton/`
+**Location:** `backend/src/main/java/com/biblioteca/patterns/singleton/`
 
-**Clases:**
-- `AuthenticationManager.java`: Gestiona la autenticación y sesiones de usuarios
-- `LibraryManager.java`: Gestiona el catálogo de libros y préstamos
+**Classes:**
+- `AuthenticationManager.java`: Manages user authentication and sessions
+- `LibraryManager.java`: Manages book catalog and loans
 
-**Propósito:** Garantizar que solo exista una instancia única de estos gestores en todo el sistema.
+**Purpose:** Ensure only one unique instance of these managers exists throughout the system.
 
-**Características:**
-- Constructor privado
-- Instancia estática única
-- Método `getInstance()` sincronizado (thread-safe)
-- Gestión centralizada de datos
+**Characteristics:**
+- Private constructor
+- Unique static instance
+- Synchronized `getInstance()` method (thread-safe)
+- Centralized data management
 
 ### 2. Factory Method 🏭
-**Ubicación:** `backend/src/main/java/com/biblioteca/patterns/factory/`
+**Location:** `backend/src/main/java/com/biblioteca/patterns/factory/`
 
-**Clases:**
-- `Book.java`: Clase abstracta base (Producto)
-- `DigitalBook.java`: Libro digital en PDF
-- `AudioBook.java`: Audiolibro
-- `EBook.java`: Libro electrónico interactivo
-- `BookFactory.java`: Factory que crea los libros (Creador)
+**Classes:**
+- `Book.java`: Abstract base class (Product)
+- `DigitalBook.java`: Digital book in PDF format
+- `AudioBook.java`: Audiobook
+- `EBook.java`: Interactive electronic book
+- `BookFactory.java`: Factory that creates books (Creator)
 
-**Propósito:** Encapsular la lógica de creación de diferentes tipos de libros sin exponer la lógica de instanciación.
+**Purpose:** Encapsulate the creation logic for different book types without exposing instantiation logic.
 
-**Ventajas:**
-- Desacopla la creación de objetos
-- Fácil agregar nuevos tipos de libros
-- Centraliza la lógica de creación
+**Advantages:**
+- Decouples object creation
+- Easy to add new book types
+- Centralizes creation logic
 
 ### 3. Facade 🎭
-**Ubicación:** `backend/src/main/java/com/biblioteca/patterns/facade/`
+**Location:** `backend/src/main/java/com/biblioteca/patterns/facade/`
 
-**Clase:**
-- `LibraryFacade.java`: Interfaz simplificada para operaciones complejas
+**Class:**
+- `LibraryFacade.java`: Simplified interface for complex operations
 
-**Propósito:** Proporcionar una interfaz unificada y simplificada para coordinar los subsistemas (AuthenticationManager, LibraryManager, BookFactory).
+**Purpose:** Provide a unified and simplified interface to coordinate subsystems (AuthenticationManager, LibraryManager, BookFactory).
 
-**Operaciones que simplifica:**
-- Login/Logout de usuarios
-- Crear y agregar libros al catálogo
-- Préstamo de libros (con validaciones)
-- Devolución de libros
-- Búsqueda de libros
-- Historial de préstamos
+**Operations it simplifies:**
+- User Login/Logout
+- Create and add books to catalog
+- Book borrowing (with validations)
+- Book returns
+- Book search
+- Loan history
 
-## 🏗️ Estructura del Proyecto
+## 🏗️ Project Structure
 
 ```
 biblioteca-digital/
 ├── backend/
 │   ├── src/main/java/com/biblioteca/
-│   │   ├── BibliotecaApplication.java        # Clase principal
+│   │   ├── BibliotecaApplication.java        # Main class
 │   │   ├── patterns/
-│   │   │   ├── singleton/                    # Patrón Singleton
+│   │   │   ├── singleton/                    # Singleton Pattern
 │   │   │   │   ├── AuthenticationManager.java
 │   │   │   │   └── LibraryManager.java
-│   │   │   ├── factory/                      # Patrón Factory Method
+│   │   │   ├── factory/                      # Factory Method Pattern
 │   │   │   │   ├── Book.java
 │   │   │   │   ├── DigitalBook.java
 │   │   │   │   ├── AudioBook.java
 │   │   │   │   ├── EBook.java
 │   │   │   │   └── BookFactory.java
-│   │   │   └── facade/                       # Patrón Facade
+│   │   │   └── facade/                       # Facade Pattern
 │   │   │       └── LibraryFacade.java
-│   │   ├── models/                           # Modelos (próximo)
-│   │   ├── controllers/                      # Controllers REST (próximo)
-│   │   └── services/                         # Services (próximo)
+│   │   ├── models/                           # Models (upcoming)
+│   │   ├── controllers/                      # REST Controllers (upcoming)
+│   │   └── services/                         # Services (upcoming)
 │   ├── src/main/resources/
 │   │   ├── application.properties
-│   │   ├── data/                             # Archivos JSON (próximo)
-│   │   └── static/                           # Frontend (próximo)
+│   │   ├── data/                             # JSON files (upcoming)
+│   │   └── static/                           # Frontend (upcoming)
 │   └── pom.xml
 └── README.md
 ```
 
-## 🚀 Tecnologías
+## 🚀 Technologies
 
 - **Java 17**
 - **Spring Boot 3.1.5**
 - **Maven**
-- **Gson** (para manejo de JSON)
+- **Gson** (for JSON handling)
 
-## 📋 Próximos Pasos
+## 📋 Next Steps
 
-1. ✅ Estructura Maven y patrones de diseño
-2. ⏳ Models, Controllers y Services
-3. ⏳ Archivos JSON con datos
+1. ✅ Maven structure and design patterns
+2. ⏳ Models, Controllers and Services
+3. ⏳ JSON data files
 4. ⏳ Frontend HTML/CSS/JavaScript
 
-## 🎓 Objetivo Académico
+## 🎓 Academic Objective
 
-Este proyecto es un caso de estudio que demuestra la implementación práctica de tres patrones de diseño fundamentales en un sistema real de gestión de biblioteca digital.
+This project is a case study demonstrating the practical implementation of three fundamental design patterns in a real digital library management system.
 
 ---
-**Desarrollado con ❤️ usando patrones de diseño**
+**Developed with ❤️ using design patterns**

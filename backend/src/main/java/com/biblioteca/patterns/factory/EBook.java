@@ -1,16 +1,16 @@
 package com.biblioteca.patterns.factory;
 
 /**
- * PATRÓN FACTORY METHOD - Producto Concreto: EBook
+ * FACTORY METHOD PATTERN - Concrete Product: EBook
  *
- * Representa un libro electrónico interactivo
- * Implementa los métodos abstractos de Book con comportamiento específico
+ * Represents an interactive electronic book
+ * Implements Book's abstract methods with specific behavior
  */
 public class EBook extends Book {
 
-    private boolean hasInteractiveContent; // Contenido interactivo
-    private int pageCount; // Número de páginas
-    private String publisher; // Editorial
+    private boolean hasInteractiveContent; // Interactive content
+    private int pageCount; // Number of pages
+    private String publisher; // Publisher
 
     /**
      * Constructor
@@ -27,25 +27,25 @@ public class EBook extends Book {
     public String getBookDetails() {
         return String.format(
             "📚 E-Book\n" +
-            "   Título: %s\n" +
-            "   Autor: %s\n" +
+            "   Title: %s\n" +
+            "   Author: %s\n" +
             "   ISBN: %s\n" +
-            "   Categoría: %s\n" +
-            "   Editorial: %s\n" +
-            "   Páginas: %d\n" +
-            "   Contenido interactivo: %s",
+            "   Category: %s\n" +
+            "   Publisher: %s\n" +
+            "   Pages: %d\n" +
+            "   Interactive content: %s",
             title, author, isbn, category, publisher, pageCount,
-            hasInteractiveContent ? "Sí" : "No"
+            hasInteractiveContent ? "Yes" : "No"
         );
     }
 
     @Override
     public String getAccessMethod() {
-        String interactive = hasInteractiveContent ? " con contenido multimedia interactivo" : "";
-        return "Lectura en línea" + interactive + " - " + pageCount + " páginas";
+        String interactive = hasInteractiveContent ? " with interactive multimedia content" : "";
+        return "Online reading" + interactive + " - " + pageCount + " pages";
     }
 
-    // Getters y Setters específicos
+    // Specific Getters and Setters
     public boolean isHasInteractiveContent() {
         return hasInteractiveContent;
     }

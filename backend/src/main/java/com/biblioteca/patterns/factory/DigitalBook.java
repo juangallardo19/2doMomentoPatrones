@@ -1,10 +1,10 @@
 package com.biblioteca.patterns.factory;
 
 /**
- * PATRÓN FACTORY METHOD - Producto Concreto: DigitalBook
+ * FACTORY METHOD PATTERN - Concrete Product: DigitalBook
  *
- * Representa un libro digital en formato PDF
- * Implementa los métodos abstractos de Book con comportamiento específico
+ * Represents a digital book in PDF format
+ * Implements Book's abstract methods with specific behavior
  */
 public class DigitalBook extends Book {
 
@@ -24,23 +24,23 @@ public class DigitalBook extends Book {
     @Override
     public String getBookDetails() {
         return String.format(
-            "📱 Libro Digital\n" +
-            "   Título: %s\n" +
-            "   Autor: %s\n" +
+            "📱 Digital Book\n" +
+            "   Title: %s\n" +
+            "   Author: %s\n" +
             "   ISBN: %s\n" +
-            "   Categoría: %s\n" +
-            "   Formato: %s\n" +
-            "   Tamaño: %.2f MB",
+            "   Category: %s\n" +
+            "   Format: %s\n" +
+            "   Size: %.2f MB",
             title, author, isbn, category, fileFormat, fileSizeMB
         );
     }
 
     @Override
     public String getAccessMethod() {
-        return "Descarga directa en formato " + fileFormat + " - Compatible con lectores digitales";
+        return "Direct download in " + fileFormat + " format - Compatible with digital readers";
     }
 
-    // Getters y Setters específicos
+    // Specific Getters and Setters
     public String getFileFormat() {
         return fileFormat;
     }

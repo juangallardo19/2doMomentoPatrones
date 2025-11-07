@@ -6,48 +6,48 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * PATRÓN SINGLETON - AuthenticationManager
+ * SINGLETON PATTERN - AuthenticationManager
  *
- * Propósito: Garantizar que solo exista una instancia del gestor de autenticación
- * en todo el sistema.
+ * Purpose: Ensure only one instance of the authentication manager exists
+ * throughout the entire system.
  *
- * Características:
- * - Constructor privado
- * - Instancia única estática
- * - Acceso global mediante getInstance()
- * - Thread-safe (sincronización)
+ * Characteristics:
+ * - Private constructor
+ * - Unique static instance
+ * - Global access through getInstance()
+ * - Thread-safe (synchronized)
  *
- * Responsabilidades:
- * - Gestionar sesiones de usuarios
- * - Login y logout
- * - Validar tokens de sesión
+ * Responsibilities:
+ * - Manage user sessions
+ * - Login and logout
+ * - Validate session tokens
  */
 public class AuthenticationManager {
 
-    // Instancia única del Singleton
+    // Unique Singleton instance
     private static AuthenticationManager instance;
 
-    // Almacén de sesiones activas: token -> usuario
+    // Active sessions storage: token -> user
     private Map<String, User> activeSessions;
 
-    // Usuario actualmente autenticado
+    // Currently authenticated user
     private User currentUser;
 
     /**
-     * Constructor privado - Previene instanciación externa
-     * Característica clave del patrón Singleton
+     * Private constructor - Prevents external instantiation
+     * Key characteristic of the Singleton pattern
      */
     private AuthenticationManager() {
         this.activeSessions = new HashMap<>();
         this.currentUser = null;
-        System.out.println("🔐 AuthenticationManager (Singleton) inicializado");
+        System.out.println("🔐 AuthenticationManager (Singleton) initialized");
     }
 
     /**
-     * Método estático para obtener la única instancia
-     * Implementación thread-safe con sincronización
+     * Static method to get the unique instance
+     * Thread-safe implementation with synchronization
      *
-     * @return La única instancia de AuthenticationManager
+     * @return The unique instance of AuthenticationManager
      */
     public static synchronized AuthenticationManager getInstance() {
         if (instance == null) {
@@ -57,24 +57,24 @@ public class AuthenticationManager {
     }
 
     /**
-     * Autentica un usuario y crea una sesión
+     * Authenticates a user and creates a session
      *
-     * @param user Usuario a autenticar
-     * @return Token de sesión único
+     * @param user User to authenticate
+     * @return Unique session token
      */
     public String login(User user) {
         String token = UUID.randomUUID().toString();
         activeSessions.put(token, user);
         currentUser = user;
-        System.out.println("✅ Usuario autenticado: " + user.getUsername() + " (Rol: " + user.getRole() + ")");
+        System.out.println("✅ User authenticated: " + user.getUsername() + " (Role: " + user.getRole() + ")");
         return token;
     }
 
     /**
-     * Cierra la sesión de un usuario
+     * Closes a user's session
      *
-     * @param token Token de sesión a cerrar
-     * @return true si se cerró exitosamente
+     * @param token Session token to close
+     * @return true if closed successfully
      */
     public boolean logout(String token) {
         if (activeSessions.containsKey(token)) {
@@ -83,56 +83,56 @@ public class AuthenticationManager {
             if (currentUser != null && currentUser.equals(user)) {
                 currentUser = null;
             }
-            System.out.println("👋 Sesión cerrada: " + user.getUsername());
+            System.out.println("👋 Session closed: " + user.getUsername());
             return true;
         }
         return false;
     }
 
     /**
-     * Valida si un token de sesión es válido
+     * Validates if a session token is valid
      *
-     * @param token Token a validar
-     * @return true si el token es válido
+     * @param token Token to validate
+     * @return true if the token is valid
      */
     public boolean isValidToken(String token) {
         return activeSessions.containsKey(token);
     }
 
     /**
-     * Obtiene el usuario asociado a un token
+     * Gets the user associated with a token
      *
-     * @param token Token de sesión
-     * @return Usuario asociado o null
+     * @param token Session token
+     * @return Associated user or null
      */
     public User getUserByToken(String token) {
         return activeSessions.get(token);
     }
 
     /**
-     * Obtiene el usuario actual
+     * Gets the current user
      *
-     * @return Usuario actual o null
+     * @return Current user or null
      */
     public User getCurrentUser() {
         return currentUser;
     }
 
     /**
-     * Obtiene el número de sesiones activas
+     * Gets the number of active sessions
      *
-     * @return Cantidad de sesiones activas
+     * @return Number of active sessions
      */
     public int getActiveSessionsCount() {
         return activeSessions.size();
     }
 
     /**
-     * Cierra todas las sesiones activas
+     * Closes all active sessions
      */
     public void clearAllSessions() {
         activeSessions.clear();
         currentUser = null;
-        System.out.println("🧹 Todas las sesiones han sido cerradas");
+        System.out.println("🧹 All sessions have been closed");
     }
 }

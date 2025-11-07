@@ -7,53 +7,53 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * PATRÓN SINGLETON - LibraryManager
+ * SINGLETON PATTERN - LibraryManager
  *
- * Propósito: Garantizar una única instancia del gestor de la biblioteca
- * que centralice todas las operaciones y datos.
+ * Purpose: Ensure a unique instance of the library manager
+ * that centralizes all operations and data.
  *
- * Características:
- * - Constructor privado
- * - Instancia única estática
+ * Characteristics:
+ * - Private constructor
+ * - Unique static instance
  * - Thread-safe
  *
- * Responsabilidades:
- * - Gestionar el catálogo de libros
- * - Gestionar préstamos
- * - Operaciones de búsqueda
+ * Responsibilities:
+ * - Manage book catalog
+ * - Manage loans
+ * - Search operations
  */
 public class LibraryManager {
 
-    // Instancia única del Singleton
+    // Unique Singleton instance
     private static LibraryManager instance;
 
-    // Catálogo de libros
+    // Book catalog
     private List<Book> books;
 
-    // Registro de préstamos
+    // Loan registry
     private List<Loan> loans;
 
-    // Contador para IDs auto-incrementales
+    // Counter for auto-incremental IDs
     private int nextBookId;
     private int nextLoanId;
 
     /**
-     * Constructor privado - Previene instanciación externa
-     * Característica clave del patrón Singleton
+     * Private constructor - Prevents external instantiation
+     * Key characteristic of the Singleton pattern
      */
     private LibraryManager() {
         this.books = new ArrayList<>();
         this.loans = new ArrayList<>();
         this.nextBookId = 1;
         this.nextLoanId = 1;
-        System.out.println("📚 LibraryManager (Singleton) inicializado");
+        System.out.println("📚 LibraryManager (Singleton) initialized");
     }
 
     /**
-     * Método estático para obtener la única instancia
-     * Implementación thread-safe con sincronización
+     * Static method to get the unique instance
+     * Thread-safe implementation with synchronization
      *
-     * @return La única instancia de LibraryManager
+     * @return The unique instance of LibraryManager
      */
     public static synchronized LibraryManager getInstance() {
         if (instance == null) {
@@ -63,37 +63,37 @@ public class LibraryManager {
     }
 
     /**
-     * Agrega un libro al catálogo
+     * Adds a book to the catalog
      *
-     * @param book Libro a agregar
+     * @param book Book to add
      */
     public void addBook(Book book) {
         if (book.getId() == 0) {
             book.setId(nextBookId++);
         } else {
-            // Si el libro ya tiene ID, actualizamos el contador
+            // If book already has ID, update the counter
             if (book.getId() >= nextBookId) {
                 nextBookId = book.getId() + 1;
             }
         }
         books.add(book);
-        System.out.println("➕ Libro agregado: " + book.getTitle() + " (ID: " + book.getId() + ")");
+        System.out.println("➕ Book added: " + book.getTitle() + " (ID: " + book.getId() + ")");
     }
 
     /**
-     * Obtiene todos los libros del catálogo
+     * Gets all books from the catalog
      *
-     * @return Lista de todos los libros
+     * @return List of all books
      */
     public List<Book> getAllBooks() {
         return new ArrayList<>(books);
     }
 
     /**
-     * Busca un libro por ID
+     * Searches for a book by ID
      *
-     * @param id ID del libro
-     * @return Libro encontrado o null
+     * @param id Book ID
+     * @return Found book or null
      */
     public Book getBookById(int id) {
         return books.stream()
@@ -103,10 +103,10 @@ public class LibraryManager {
     }
 
     /**
-     * Busca libros por título (búsqueda parcial)
+     * Searches books by title (partial search)
      *
-     * @param title Título a buscar
-     * @return Lista de libros que coinciden
+     * @param title Title to search
+     * @return List of matching books
      */
     public List<Book> searchBooksByTitle(String title) {
         return books.stream()
@@ -115,10 +115,10 @@ public class LibraryManager {
     }
 
     /**
-     * Busca libros por categoría
+     * Searches books by category
      *
-     * @param category Categoría a buscar
-     * @return Lista de libros de esa categoría
+     * @param category Category to search
+     * @return List of books in that category
      */
     public List<Book> getBooksByCategory(String category) {
         return books.stream()
@@ -127,9 +127,9 @@ public class LibraryManager {
     }
 
     /**
-     * Agrega un préstamo al registro
+     * Adds a loan to the registry
      *
-     * @param loan Préstamo a agregar
+     * @param loan Loan to add
      */
     public void addLoan(Loan loan) {
         if (loan.getId() == 0) {
@@ -140,23 +140,23 @@ public class LibraryManager {
             }
         }
         loans.add(loan);
-        System.out.println("📖 Préstamo registrado: ID " + loan.getId());
+        System.out.println("📖 Loan registered: ID " + loan.getId());
     }
 
     /**
-     * Obtiene todos los préstamos
+     * Gets all loans
      *
-     * @return Lista de todos los préstamos
+     * @return List of all loans
      */
     public List<Loan> getAllLoans() {
         return new ArrayList<>(loans);
     }
 
     /**
-     * Obtiene préstamos de un usuario específico
+     * Gets loans for a specific user
      *
-     * @param username Nombre de usuario
-     * @return Lista de préstamos del usuario
+     * @param username Username
+     * @return List of user's loans
      */
     public List<Loan> getLoansByUser(String username) {
         return loans.stream()
@@ -165,10 +165,10 @@ public class LibraryManager {
     }
 
     /**
-     * Busca un préstamo por ID
+     * Searches for a loan by ID
      *
-     * @param id ID del préstamo
-     * @return Préstamo encontrado o null
+     * @param id Loan ID
+     * @return Found loan or null
      */
     public Loan getLoanById(int id) {
         return loans.stream()
@@ -178,29 +178,29 @@ public class LibraryManager {
     }
 
     /**
-     * Obtiene estadísticas de la biblioteca
+     * Gets library statistics
      *
-     * @return String con estadísticas
+     * @return String with statistics
      */
     public String getStatistics() {
         long activeLoans = loans.stream().filter(loan -> !loan.isReturned()).count();
         return String.format(
-            "📊 Estadísticas:\n" +
-            "   - Libros en catálogo: %d\n" +
-            "   - Préstamos totales: %d\n" +
-            "   - Préstamos activos: %d",
+            "📊 Statistics:\n" +
+            "   - Books in catalog: %d\n" +
+            "   - Total loans: %d\n" +
+            "   - Active loans: %d",
             books.size(), loans.size(), activeLoans
         );
     }
 
     /**
-     * Reinicia la biblioteca (útil para testing)
+     * Resets the library (useful for testing)
      */
     public void reset() {
         books.clear();
         loans.clear();
         nextBookId = 1;
         nextLoanId = 1;
-        System.out.println("🔄 LibraryManager reiniciado");
+        System.out.println("🔄 LibraryManager reset");
     }
 }
