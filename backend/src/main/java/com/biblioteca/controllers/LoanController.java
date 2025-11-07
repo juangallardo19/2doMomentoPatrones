@@ -4,6 +4,7 @@ import com.biblioteca.models.Loan;
 import com.biblioteca.patterns.facade.LibraryFacade;
 import com.biblioteca.patterns.singleton.LibraryManager;
 import com.biblioteca.services.DataService;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,12 +42,13 @@ public class LoanController {
     public LoanController() {
         this.libraryFacade = LibraryFacade.getInstance();
         this.libraryManager = LibraryManager.getInstance();
-        initializeLoans();
     }
 
     /**
      * Initialize loans from JSON on startup
+     * This method is called after all dependencies are injected
      */
+    @PostConstruct
     private void initializeLoans() {
         List<Loan> loans = dataService.loadLoans();
         for (Loan loan : loans) {

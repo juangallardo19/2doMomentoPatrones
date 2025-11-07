@@ -5,6 +5,7 @@ import com.biblioteca.patterns.factory.BookFactory;
 import com.biblioteca.patterns.facade.LibraryFacade;
 import com.biblioteca.patterns.singleton.LibraryManager;
 import com.biblioteca.services.DataService;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,12 +44,13 @@ public class BookController {
     public BookController() {
         this.libraryFacade = LibraryFacade.getInstance();
         this.libraryManager = LibraryManager.getInstance();
-        initializeBooks();
     }
 
     /**
      * Initialize books from JSON on startup
+     * This method is called after all dependencies are injected
      */
+    @PostConstruct
     private void initializeBooks() {
         List<Book> books = dataService.loadBooks();
         for (Book book : books) {
