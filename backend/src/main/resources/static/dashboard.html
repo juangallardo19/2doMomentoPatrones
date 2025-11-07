@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Library - Dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>📚 Digital Library</h1>
+            </div>
+            <div class="nav-menu">
+                <span id="userInfo" class="user-info"></span>
+                <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-button active" data-tab="catalog">📖 Catalog</button>
+            <button class="tab-button" data-tab="myLoans">📚 My Loans</button>
+        </div>
+
+        <!-- Catalog Tab -->
+        <div id="catalogTab" class="tab-content active">
+            <div class="section-header">
+                <h2>Book Catalog</h2>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search books by title...">
+                    <button id="searchBtn" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+
+            <div class="filters">
+                <label>Filter by Category:</label>
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="Programming">Programming</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Self-Improvement">Self-Improvement</option>
+                    <option value="History">History</option>
+                    <option value="Biography">Biography</option>
+                    <option value="Psychology">Psychology</option>
+                </select>
+            </div>
+
+            <div id="booksGrid" class="books-grid">
+                <!-- Books will be loaded here -->
+            </div>
+        </div>
+
+        <!-- My Loans Tab -->
+        <div id="myLoansTab" class="tab-content">
+            <div class="section-header">
+                <h2>My Loan History</h2>
+            </div>
+
+            <div id="loansTable" class="loans-table">
+                <!-- Loans will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Book Detail Modal -->
+    <div id="bookModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="bookDetails"></div>
+        </div>
+    </div>
+
+    <script src="/js/config.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

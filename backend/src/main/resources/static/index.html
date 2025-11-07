@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Library - Login</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo">
+                <h1>📚 Digital Library</h1>
+                <p>Design Patterns Implementation</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <h2>Login</h2>
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required
+                           placeholder="Enter your username">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required
+                           placeholder="Enter your password">
+                </div>
+
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+
+            <div class="demo-credentials">
+                <h3>Demo Credentials:</h3>
+                <div class="credentials-list">
+                    <div class="credential-item">
+                        <strong>Admin:</strong> admin / admin123
+                    </div>
+                    <div class="credential-item">
+                        <strong>User:</strong> john / user123
+                    </div>
+                    <div class="credential-item">
+                        <strong>Guest:</strong> guest / guest
+                    </div>
+                </div>
+            </div>
+
+            <div class="patterns-info">
+                <h3>🎯 Design Patterns Used:</h3>
+                <ul>
+                    <li><strong>Singleton</strong> - AuthenticationManager, LibraryManager</li>
+                    <li><strong>Factory Method</strong> - BookFactory (Digital, Audio, eBook)</li>
+                    <li><strong>Facade</strong> - LibraryFacade (Simplified operations)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/auth.js"></script>
+</body>
+</html>
